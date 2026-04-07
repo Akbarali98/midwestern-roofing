@@ -108,59 +108,19 @@
     .project-card { border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--border); transition: box-shadow 0.3s, transform 0.3s; }
     .project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
 
-    /* The slider */
-    .ba-slider {
-      position: relative; overflow: hidden; cursor: ew-resize;
-      user-select: none; touch-action: pan-y;
-      aspect-ratio: 16/9; background: var(--bg-alt);
-    }
-    .ba-after, .ba-before { position: absolute; inset: 0; }
-    .ba-after img, .ba-before img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-
-    /* Before is clipped on the left */
-    .ba-before { clip-path: inset(0 50% 0 0); transition: clip-path 0s; }
-
-    /* Divider line */
-    .ba-line {
-      position: absolute; top: 0; bottom: 0; width: 3px;
-      background: #fff; left: 50%; transform: translateX(-50%);
-      box-shadow: 0 0 12px rgba(0,0,0,0.35);
-      transition: left 0s; pointer-events: none;
-    }
-
-    /* Handle */
-    .ba-handle {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 48px; height: 48px; border-radius: 50%;
-      background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.25);
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: none; z-index: 10;
-      transition: left 0s, transform 0s;
-    }
-    .ba-handle svg { color: var(--orange); }
-
-    /* Labels */
+    /* Side-by-side images */
+    .ba-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: var(--border); }
+    .ba-side { position: relative; overflow: hidden; }
+    .ba-side img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .project-card:hover .ba-side img { transform: scale(1.03); }
     .ba-label {
-      position: absolute; top: 16px;
+      position: absolute; top: 12px; left: 12px;
       background: rgba(0,0,0,0.6); color: #fff;
-      font-size: 11px; font-weight: 800; letter-spacing: 2px;
-      text-transform: uppercase; padding: 5px 12px; border-radius: 4px;
-      backdrop-filter: blur(4px); pointer-events: none; z-index: 5;
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+      backdrop-filter: blur(4px);
     }
-    .ba-label.before { left: 16px; }
-    .ba-label.after { right: 16px; }
-
-    /* Drag hint */
-    .ba-hint {
-      position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-      background: rgba(0,0,0,0.5); color: #fff;
-      font-size: 11px; font-weight: 600; letter-spacing: 1px;
-      padding: 5px 14px; border-radius: 100px;
-      backdrop-filter: blur(4px); pointer-events: none; z-index: 5;
-      transition: opacity 0.4s;
-    }
-    .ba-slider.interacted .ba-hint { opacity: 0; }
+    .ba-label.after { left: auto; right: 12px; background: var(--orange); }
 
     /* Card meta */
     .project-meta { padding: 24px 28px; }
@@ -254,7 +214,7 @@
   </div>
   <span class="eyebrow">Our Work</span>
   <h1>Before &amp; After <span>Gallery</span></h1>
-  <p>Real projects, real results. Drag the slider on any photo to see the transformation we made for homeowners across Northeast Ohio.</p>
+  <p>Real projects, real results. Before and after photos from real jobs we've done for homeowners across Northeast Ohio.</p>
   <div class="page-header-cta">
     <a href="https://app.roofr.com/instant-estimator/d5adbab8-0718-44f5-a11e-8b19d56469f3/MidwesternConstruction/welcome-question" target="_blank" rel="noopener" class="btn btn-primary">Get an Instant Estimate</a>
     <a href="tel:3302031666" class="btn btn-outline">Call (330) 203-1666</a>
@@ -460,32 +420,21 @@
       const card = createCard(project, i);
       grid.appendChild(card);
     });
-
-    // Init all sliders after render
-    grid.querySelectorAll('.ba-slider').forEach(initSlider);
   }
 
   function createCard(project, i) {
     const card = document.createElement('div');
     card.className = 'project-card';
     card.innerHTML = `
-      <div class="ba-slider" role="img" aria-label="${project.title} before and after">
-        <div class="ba-after">
-          <img src="${project.afterUrl}" alt="${project.title} after" loading="${i < 2 ? 'eager' : 'lazy'}" />
-        </div>
-        <div class="ba-before">
+      <div class="ba-pair">
+        <div class="ba-side">
           <img src="${project.beforeUrl}" alt="${project.title} before" loading="${i < 2 ? 'eager' : 'lazy'}" />
+          <span class="ba-label">Before</span>
         </div>
-        <div class="ba-line"></div>
-        <div class="ba-handle">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="15 18 9 12 15 6"></polyline>
-            <polyline points="9 18 3 12 9 6" style="transform:translateX(12px)"></polyline>
-          </svg>
+        <div class="ba-side">
+          <img src="${project.afterUrl}" alt="${project.title} after" loading="${i < 2 ? 'eager' : 'lazy'}" />
+          <span class="ba-label after">After</span>
         </div>
-        <span class="ba-label before">Before</span>
-        <span class="ba-label after">After</span>
-        <span class="ba-hint">← Drag to compare →</span>
       </div>
       <div class="project-meta">
         <span class="project-tag">${CATEGORY_LABELS[project.category] || 'Project'}</span>
@@ -499,36 +448,6 @@
     return card;
   }
 
-  // ── SLIDER LOGIC ──────────────────────────────────────────────
-  function initSlider(slider) {
-    const before = slider.querySelector('.ba-before');
-    const line   = slider.querySelector('.ba-line');
-    const handle = slider.querySelector('.ba-handle');
-    let dragging = false;
-
-    function setPosition(x) {
-      const rect = slider.getBoundingClientRect();
-      let pct = Math.max(2, Math.min(98, ((x - rect.left) / rect.width) * 100));
-      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-      line.style.left   = pct + '%';
-      handle.style.left = pct + '%';
-      handle.style.transform = 'translate(-50%, -50%)';
-    }
-
-    // Mouse
-    slider.addEventListener('mousedown', e => { dragging = true; slider.classList.add('interacted'); setPosition(e.clientX); e.preventDefault(); });
-    window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
-    window.addEventListener('mouseup', () => { dragging = false; });
-
-    // Touch
-    slider.addEventListener('touchstart', e => { dragging = true; slider.classList.add('interacted'); setPosition(e.touches[0].clientX); }, { passive: true });
-    window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
-    window.addEventListener('touchend', () => { dragging = false; });
-
-    // Click
-    slider.addEventListener('click', e => { slider.classList.add('interacted'); setPosition(e.clientX); });
-  }
-
   // ── FILTERS ───────────────────────────────────────────────────
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -536,8 +455,6 @@
       btn.classList.add('active');
       activeFilter = btn.dataset.filter;
       renderProjects();
-      // Re-init sliders
-      document.querySelectorAll('.ba-slider').forEach(initSlider);
     });
   });
 
