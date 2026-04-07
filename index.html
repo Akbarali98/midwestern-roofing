@@ -583,20 +583,13 @@
       </div>
       <div class="hero-trust-item">
         <div class="dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-        Top-Quality Materials, Lifetime Warranty
+        Top-Quality Materials &amp; Expert Craftsmanship
       </div>
     </div>
   </div>
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=1200&q=85&auto=format&fit=crop" alt="Premium roofing installation Northeast Ohio" />
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85&auto=format&fit=crop" alt="Premium roofing installation Northeast Ohio" />
     <div class="hero-right-overlay"></div>
-    <div class="hero-badge">
-      <div class="hero-badge-icon">⭐</div>
-      <div>
-        <div class="hero-badge-num">4.9 / 5.0</div>
-        <div class="hero-badge-lbl">500+ Verified Reviews</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -758,20 +751,6 @@
   </div>
 </section>
 
-<!-- ══ REVIEWS GALLERY ══ -->
-<section class="reviews" id="reviews">
-  <div class="reviews-header reveal">
-    <div>
-      <span class="eyebrow">What Clients Say</span>
-      <h2 class="section-title">Customer <span>Reviews</span></h2>
-    </div>
-  </div>
-  <div id="reviews-skeleton" class="reviews-skeleton">
-    <div class="skel"></div><div class="skel"></div>
-    <div class="skel"></div><div class="skel"></div>
-  </div>
-  <div id="reviews-container" style="max-width:var(--container);margin:0 auto;display:none;"></div>
-</section>
 
 <!-- ══ PROCESS ══ -->
 <section class="process">
@@ -1033,36 +1012,6 @@
   function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  // Reviews gallery
-  async function loadReviews() {
-    try {
-      const res = await fetch('/api/gallery?folder=reviews');
-      const photos = await res.json();
-      document.getElementById('reviews-skeleton').style.display = 'none';
-      const container = document.getElementById('reviews-container');
-      container.style.display = 'block';
-      if (!photos.length) {
-        container.innerHTML = `<div class="reviews-grid"><div class="review-empty"><span class="review-empty-icon">⭐</span><h4>Reviews coming soon</h4><p>We update this section regularly.</p></div></div>`;
-        return;
-      }
-      const grid = document.createElement('div');
-      grid.className = 'reviews-grid';
-      photos.forEach(p => {
-        const item = document.createElement('div');
-        item.className = 'review-item';
-        item.innerHTML = `<img src="${p.url}" alt="Customer review" loading="lazy" />`;
-        item.addEventListener('click', () => openLightbox(p.url));
-        grid.appendChild(item);
-      });
-      container.appendChild(grid);
-    } catch {
-      document.getElementById('reviews-skeleton').style.display = 'none';
-      const container = document.getElementById('reviews-container');
-      container.style.display = 'block';
-      container.innerHTML = `<div class="reviews-grid"><div class="review-empty"><span class="review-empty-icon">⭐</span><h4>Reviews coming soon</h4><p>Check back soon!</p></div></div>`;
-    }
-  }
-  loadReviews();
 </script>
 </body>
 </html>
