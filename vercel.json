@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    }
+  "functions": {
+    "api/gallery.js": { "memory": 512, "maxDuration": 10 },
+    "api/auth.js":    { "memory": 128, "maxDuration": 5 }
+  },
+  "routes": [
+    { "src": "/upload", "dest": "/upload.html" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
