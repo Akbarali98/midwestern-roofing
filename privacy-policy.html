@@ -131,8 +131,9 @@
   </div>
 </div>
 
-<div class="policy-body">
-  <span class="last-updated">Last Updated: June 18, 2025</span>
+<div class="policy-body" id="policy-body">
+  <span class="last-updated" id="pp-last-updated">Last Updated: June 18, 2025</span>
+  <div id="pp-sections">
 
   <h2>Introduction</h2>
   <p>This Privacy Policy outlines Midwestern Construction's practices with respect to information collected from users who access our website at <a href="https://midwestern.construction">midwestern.construction</a> ("the Site"). By using the Site, you consent to the data practices described in this policy.</p>
@@ -206,6 +207,8 @@
     <li>Phone: <a href="tel:3302031666">(330) 203-1666</a></li>
     <li>Address: Akron, OH 44305</li>
   </ul>
+
+  </div><!-- #pp-sections -->
 </div>
 
 <footer>
@@ -215,7 +218,7 @@
     </a>
     <span class="footer-copy">© 2026 MidWestern Construction. All rights reserved.</span>
     <div class="footer-links">
-      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="/privacy-policy">Privacy Policy</a>
       <a href="/">Back to Home</a>
     </div>
   </div>
@@ -224,6 +227,30 @@
 <script>
   function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
   function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // Sanity CMS hydration
+  (function() {
+    const PROJECT_ID = 'ot1ams1m';
+    const DATASET = 'production';
+    const query = encodeURIComponent('*[_type=="privacyPolicy"][0]{lastUpdated,sections[]{heading,body}}');
+    fetch(`https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${query}`)
+      .then(r => r.json())
+      .then(({result}) => {
+        if (!result) return;
+        if (result.lastUpdated) {
+          document.getElementById('pp-last-updated').textContent = 'Last Updated: ' + result.lastUpdated;
+          const heroDate = document.querySelector('.page-hero p');
+          if (heroDate) heroDate.textContent = 'Last updated: ' + result.lastUpdated;
+        }
+        if (result.sections && result.sections.length > 0) {
+          const container = document.getElementById('pp-sections');
+          container.innerHTML = result.sections.map(s =>
+            `<h2>${s.heading}</h2><p>${(s.body || '').replace(/\n/g, '</p><p>')}</p>`
+          ).join('\n');
+        }
+      })
+      .catch(() => {});
+  })();
 </script>
 </body>
 </html>
