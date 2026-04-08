@@ -18,6 +18,7 @@
     { "src": "/services/storm-damage-repairs", "dest": "/service-storm-damage.html" },
     { "src": "/services/gutters", "dest": "/service-gutters.html" },
     { "src": "/services/home-renovations", "dest": "/service-home-renovations.html" },
+    { "src": "/privacy-policy", "dest": "/privacy-policy.html" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
