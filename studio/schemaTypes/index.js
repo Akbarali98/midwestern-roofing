@@ -1,3 +1,5 @@
 import project from './project'
+import siteSettings from './siteSettings'
+import homePage from './homePage'
 
-export const schemaTypes = [project]
+export const schemaTypes = [siteSettings, homePage, project]
