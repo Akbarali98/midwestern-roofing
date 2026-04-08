@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Before &amp; After Gallery | MidWestern Construction</title>
   <meta name="description" content="Browse MidWestern Construction's before and after project gallery. Real roofing, siding, and gutter transformations across Northeast Ohio." />
+  <link rel="icon" type="image/png" href="https://cdn.agencyengine.ai/logos/mr_2zeb0krpfhwqzk/logo_d1fd6ed6c7bb.2xs.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&display=swap" rel="stylesheet" />
@@ -55,6 +56,28 @@
     .nav-phone:hover { color: var(--orange); }
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
     .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 2px; }
+    .mobile-menu { display: none; background: #fff; border-top: 1px solid var(--border); padding: 20px 32px 24px; flex-direction: column; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); text-decoration: none; padding: 13px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-cta-bar { display: none; }
+    @media (max-width: 768px) {
+      .mobile-cta-bar { display: block; background: #fff; border-top: 1px solid var(--border); padding: 10px 20px 12px; }
+      .mobile-cta-phone { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 16px; font-weight: 800; color: var(--text); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+      .mobile-cta-phone svg { color: var(--orange); }
+      .mobile-cta-btn { display: block; width: 100%; text-align: center; background: var(--orange); color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 15px; padding: 14px; border-radius: var(--radius); text-decoration: none; transition: background 0.2s; }
+      .mobile-cta-btn:hover { background: var(--orange-dark); }
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; padding: 24px; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: var(--radius); object-fit: contain; }
+    .lightbox-close { position: absolute; top: 20px; right: 24px; color: #fff; font-size: 36px; cursor: pointer; background: none; border: none; line-height: 1; opacity: 0.8; transition: opacity 0.2s; }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-label { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; backdrop-filter: blur(4px); }
+    .ba-side { cursor: zoom-in; }
 
     /* ── PAGE HEADER ── */
     .page-header { padding: 140px 32px 80px; background: var(--bg-alt); text-align: center; }
@@ -181,11 +204,7 @@
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <div class="nav-logo-mark">🏠</div>
-      <div class="nav-logo-text">
-        <span class="nav-logo-name">MIDWESTERN</span>
-        <span class="nav-logo-sub">Construction</span>
-      </div>
+      <img src="https://cdn.agencyengine.ai/logos/mr_2zeb0krpfhwqzk/logo_d1fd6ed6c7bb.2xs.png" alt="MidWestern Construction" style="height:48px;width:auto;display:block;object-fit:contain;" />
     </a>
     <ul class="nav-links">
       <li><a href="/#contact">Contact Us</a></li>
@@ -201,7 +220,21 @@
       </a>
       <a href="https://app.roofr.com/instant-estimator/d5adbab8-0718-44f5-a11e-8b19d56469f3/MidwesternConstruction/welcome-question" target="_blank" rel="noopener" class="btn btn-primary">Get an Instant Estimate</a>
     </div>
-    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" aria-label="Menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#contact">Contact Us</a>
+    <a href="/#why">About Us</a>
+    <a href="/#services">Services</a>
+    <a href="gallery.html">Our Work</a>
+    <a href="/#areas">Service Areas</a>
+  </div>
+  <div class="mobile-cta-bar">
+    <a href="tel:3302031666" class="mobile-cta-phone">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      (330) 203-1666
+    </a>
+    <a href="https://app.roofr.com/instant-estimator/d5adbab8-0718-44f5-a11e-8b19d56469f3/MidwesternConstruction/welcome-question" target="_blank" rel="noopener" class="mobile-cta-btn">Get My Free Estimate</a>
   </div>
 </nav>
 
@@ -294,7 +327,31 @@
   </div>
 </footer>
 
+<!-- ══ LIGHTBOX ══ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="" />
+  <span class="lightbox-label" id="lightbox-label"></span>
+</div>
+
 <script>
+  // Mobile menu
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  // Lightbox
+  function openLightbox(src, label) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-label').textContent = label;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+
   // ── DEMO PROJECTS (shown when no Cloudinary photos exist yet) ──────────
   // Each project has: beforeUrl, afterUrl, title, location, category
   const DEMO_PROJECTS = [
@@ -393,11 +450,11 @@
     card.className = 'project-card';
     card.innerHTML = `
       <div class="ba-pair">
-        <div class="ba-side">
+        <div class="ba-side" onclick="openLightbox('${project.beforeUrl}', 'Before — ${project.title}')">
           <img src="${project.beforeUrl}" alt="${project.title} before" loading="${i < 2 ? 'eager' : 'lazy'}" />
           <span class="ba-label">Before</span>
         </div>
-        <div class="ba-side">
+        <div class="ba-side" onclick="openLightbox('${project.afterUrl}', 'After — ${project.title}')">
           <img src="${project.afterUrl}" alt="${project.title} after" loading="${i < 2 ? 'eager' : 'lazy'}" />
           <span class="ba-label after">After</span>
         </div>
