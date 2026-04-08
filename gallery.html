@@ -355,48 +355,14 @@
   // ── LOAD PROJECTS ──────────────────────────────────────────────
   async function loadProjects() {
     try {
-      const res = await fetch('/api/gallery?folder=our-work');
+      const res = await fetch('/api/gallery');
       const data = await res.json();
-      // Pair up photos: expects filenames like "job1-before.jpg" / "job1-after.jpg"
-      // Falls back to demo if no photos yet
-      if (Array.isArray(data) && data.length >= 2) {
-        allProjects = pairPhotos(data);
-      } else {
-        allProjects = DEMO_PROJECTS;
-      }
+      allProjects = Array.isArray(data) && data.length > 0 ? data : DEMO_PROJECTS;
     } catch {
       allProjects = DEMO_PROJECTS;
     }
     document.getElementById('skeleton').style.display = 'none';
     renderProjects();
-  }
-
-  // Pair photos by matching base filename (strip -before / -after suffix)
-  function pairPhotos(photos) {
-    const map = {};
-    photos.forEach(p => {
-      const filename = p.url.split('/').pop().replace(/\.[^.]+$/, ''); // strip ext
-      const isBefore = filename.toLowerCase().includes('before');
-      const isAfter  = filename.toLowerCase().includes('after');
-      const base = filename.toLowerCase().replace(/-?before|-?after/g, '').replace(/-+$/, '').replace(/^-+/, '');
-      if (!map[base]) map[base] = {};
-      if (isBefore) map[base].beforeUrl = p.url;
-      if (isAfter)  map[base].afterUrl  = p.url;
-      map[base].raw = map[base].raw || filename;
-    });
-    return Object.values(map)
-      .filter(p => p.beforeUrl && p.afterUrl)
-      .map(p => ({
-        beforeUrl: p.beforeUrl,
-        afterUrl:  p.afterUrl,
-        title: toTitleCase(p.raw.replace(/-/g, ' ')),
-        location: 'Northeast Ohio',
-        category: 'roofing',
-      }));
-  }
-
-  function toTitleCase(str) {
-    return str.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.slice(1).toLowerCase());
   }
 
   // ── RENDER ────────────────────────────────────────────────────
