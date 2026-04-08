@@ -1,53 +1,45 @@
 // api/gallery.js — Vercel Serverless Function
-// Returns photos from a Cloudinary folder as JSON.
-// For the "our-work" folder, photos should be named:
-//   jobname-before.jpg  /  jobname-after.jpg
-// The gallery page pairs them automatically by matching base filename.
+// Fetches projects from Sanity CMS via GROQ query.
 //
-// Environment variables (set in Vercel dashboard):
-//   CLOUDINARY_CLOUD_NAME
-//   CLOUDINARY_API_KEY
-//   CLOUDINARY_API_SECRET
+// Environment variable (set in Vercel dashboard):
+//   SANITY_API_TOKEN  — Viewer token from sanity.io/manage
 
-const cloudinary = require('cloudinary').v2;
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key:    process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+const PROJECT_ID  = 'ot1ams1m';
+const DATASET     = 'production';
+const API_VERSION = '2021-10-21';
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
-  const folder  = req.query.folder;
-  const allowed = ['our-work', 'reviews'];
+  const query = `*[_type == "project"] | order(displayOrder asc, _createdAt asc) {
+    _id,
+    title,
+    location,
+    category,
+    "beforeUrl": beforePhoto.asset->url,
+    "afterUrl": afterPhoto.asset->url
+  }`;
 
-  if (!folder || !allowed.includes(folder)) {
-    return res.status(400).json({ error: 'Invalid folder. Use: our-work or reviews' });
-  }
+  const url = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${encodeURIComponent(query)}`;
 
   try {
-    const result = await cloudinary.search
-      .expression(`folder:${folder}`)
-      .sort_by('public_id', 'asc')   // alphabetical so before/after pairs stay together
-      .max_results(100)
-      .execute();
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.SANITY_API_TOKEN}`,
+      },
+    });
 
-    const photos = result.resources.map(r => ({
-      url:        r.secure_url,
-      public_id:  r.public_id,
-      filename:   r.public_id.split('/').pop(),
-      width:      r.width,
-      height:     r.height,
-      created_at: r.created_at,
-    }));
+    if (!response.ok) {
+      throw new Error(`Sanity API error: ${response.status}`);
+    }
+
+    const data = await response.json();
 
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
-    return res.status(200).json(photos);
+    return res.status(200).json(data.result || []);
   } catch (err) {
-    console.error('Cloudinary error:', err.message);
-    return res.status(500).json({ error: 'Failed to load photos' });
+    console.error('Sanity error:', err.message);
+    return res.status(500).json({ error: 'Failed to load projects' });
   }
 };
