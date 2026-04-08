@@ -250,10 +250,11 @@
     .value-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .value-card:hover::after { transform: scaleX(1); }
     .value-icon {
-      width: 52px; height: 52px; background: var(--orange-light);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-size: 24px; margin-bottom: 24px;
+      width: 64px; height: 64px; background: var(--orange-light);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
     }
+    .value-icon svg { width: 34px; height: 34px; color: var(--orange); }
     .value-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.2px; }
     .value-card p { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
 
@@ -726,17 +727,42 @@
   </div>
   <div class="values-grid" id="values-grid">
     <div class="value-card reveal">
-      <div class="value-icon">🤝</div>
+      <div class="value-icon">
+        <!-- Handshake / honest communication icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6.5 12H4a1 1 0 00-1 1v5a1 1 0 001 1h1.5"/>
+          <path d="M17.5 12H20a1 1 0 011 1v5a1 1 0 01-1 1h-1.5"/>
+          <path d="M8 12l2.5-2.5a2 2 0 012.83 0L15 11l2-2"/>
+          <path d="M6.5 19l2.3 1.4a4 4 0 003.4.3l4.8-1.7"/>
+          <path d="M17.5 15l-3.8 1.4a3 3 0 01-2.4-.2L9 15"/>
+          <circle cx="17" cy="7" r="3"/>
+          <path d="M17 4V2"/>
+        </svg>
+      </div>
       <h3>Honest Communication</h3>
       <p>We pledge transparent and honest communication throughout your roofing project. Clear explanations of costs, materials, and timelines — so you can make informed decisions with confidence.</p>
     </div>
     <div class="value-card reveal">
-      <div class="value-icon">🏗️</div>
+      <div class="value-icon">
+        <!-- Hard hat / quality workmanship icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 18h20"/>
+          <path d="M12 2a8 8 0 018 8H4a8 8 0 018-8z"/>
+          <path d="M12 2v4"/>
+          <rect x="4" y="18" width="16" height="3" rx="1.5"/>
+        </svg>
+      </div>
       <h3>Quality Workmanship</h3>
       <p>Our team upholds the highest standards using premium materials and proven techniques. From asphalt shingles to metal roofing, every job meets rigorous quality benchmarks for superior durability.</p>
     </div>
     <div class="value-card reveal">
-      <div class="value-icon">🌟</div>
+      <div class="value-icon">
+        <!-- Shield with checkmark / satisfaction guarantee icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l8 3v6c0 5-4 9-8 11C8 20 4 16 4 11V5l8-3z"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+      </div>
       <h3>Customer Satisfaction</h3>
       <p>We're dedicated to exceptional service, tailoring solutions to your specific needs and budget. We listen attentively, offer expert guidance, and don't leave until you're 100% satisfied.</p>
     </div>
@@ -1135,10 +1161,15 @@
       setImg('why-img', home.whyImageUrl || null);
 
       // Values
+      const VALUE_ICONS = {
+        'Honest Communication': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12H4a1 1 0 00-1 1v5a1 1 0 001 1h1.5"/><path d="M17.5 12H20a1 1 0 011 1v5a1 1 0 01-1 1h-1.5"/><path d="M8 12l2.5-2.5a2 2 0 012.83 0L15 11l2-2"/><path d="M6.5 19l2.3 1.4a4 4 0 003.4.3l4.8-1.7"/><path d="M17.5 15l-3.8 1.4a3 3 0 01-2.4-.2L9 15"/><circle cx="17" cy="7" r="3"/><path d="M17 4V2"/></svg>`,
+        'Quality Workmanship': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M12 2a8 8 0 018 8H4a8 8 0 018-8z"/><path d="M12 2v4"/><rect x="4" y="18" width="16" height="3" rx="1.5"/></svg>`,
+        'Customer Satisfaction': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-4 9-8 11C8 20 4 16 4 11V5l8-3z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+      };
       if (home.values && home.values.length) {
         document.getElementById('values-grid').innerHTML = home.values.map(v => `
           <div class="value-card reveal">
-            <div class="value-icon">${v.icon || ''}</div>
+            <div class="value-icon">${VALUE_ICONS[v.title] || v.icon || ''}</div>
             <h3>${v.title || ''}</h3>
             <p>${v.description || ''}</p>
           </div>`).join('');
