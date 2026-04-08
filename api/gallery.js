@@ -1,8 +1,6 @@
 // api/gallery.js — Vercel Serverless Function
 // Fetches projects from Sanity CMS via GROQ query.
-//
-// Environment variable (set in Vercel dashboard):
-//   SANITY_API_TOKEN  — Viewer token from sanity.io/manage
+// Dataset is public — no token required.
 
 const PROJECT_ID  = 'ot1ams1m';
 const DATASET     = 'production';
@@ -24,11 +22,7 @@ module.exports = async (req, res) => {
   const url = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${encodeURIComponent(query)}`;
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${process.env.SANITY_API_TOKEN}`,
-      },
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Sanity API error: ${response.status}`);
