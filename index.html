@@ -171,7 +171,9 @@
     .hero-right { position: relative; background: var(--bg-alt); overflow: hidden; }
     .hero-right img {
       width: 100%; height: 100%; object-fit: cover; display: block;
+      opacity: 0; transition: opacity 0.4s ease;
     }
+    #why-img { opacity: 0; transition: opacity 0.4s ease; }
     .hero-right-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to right, rgba(255,255,255,0.15) 0%, transparent 40%);
@@ -1004,7 +1006,14 @@
 
       function setText(id, val) { if (val && document.getElementById(id)) document.getElementById(id).textContent = val; }
       function setHref(id, val) { if (val && document.getElementById(id)) document.getElementById(id).href = val; }
-      function setImg(id, url) { if (url && document.getElementById(id)) document.getElementById(id).src = url; }
+      function setImg(id, url) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const src = url || el.src;
+        el.src = src;
+        el.onload = () => el.style.opacity = '1';
+        el.onerror = () => el.style.opacity = '1';
+      }
 
       function setPhone(phone) {
         if (!phone) return;
@@ -1036,7 +1045,7 @@
       setText('hero-h1-main', home.heroHeadline ? home.heroHeadline + ' ' : null);
       setText('hero-h1-accent', home.heroHeadlineAccent);
       setText('hero-subheadline', home.heroSubheadline);
-      setImg('hero-img', home.heroImageUrl);
+      setImg('hero-img', home.heroImageUrl || null);
       if (home.heroTrustItems && home.heroTrustItems.length) {
         document.getElementById('hero-trust').innerHTML = home.heroTrustItems
           .map(t => `<div class="hero-trust-item">${DOT_SVG}${t}</div>`).join('');
@@ -1051,7 +1060,7 @@
       setText('why-body2', home.whyBody2);
       setText('why-stat-num', home.whyStatNumber);
       setText('why-stat-lbl', home.whyStatLabel);
-      setImg('why-img', home.whyImageUrl);
+      setImg('why-img', home.whyImageUrl || null);
 
       // Values
       if (home.values && home.values.length) {
@@ -1113,7 +1122,11 @@
       }
 
     } catch (e) {
-      // Silently fall back to hardcoded content
+      // Silently fall back to hardcoded content — still reveal images
+      ['hero-img', 'why-img'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.onload = () => el.style.opacity = '1'; el.onerror = () => el.style.opacity = '1'; el.src = el.src; }
+      });
     }
   })();
 
