@@ -80,7 +80,7 @@
     .benefit-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--orange); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
     .benefit-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .benefit-card:hover::after { transform: scaleX(1); }
-    .benefit-icon { font-size: 36px; margin-bottom: 20px; display: block; }
+    .benefit-icon { width: 52px; height: 52px; background: var(--orange-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; } .benefit-icon svg { width: 28px; height: 28px; color: var(--orange); }
     .benefit-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.2px; }
     .benefit-card p { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
 
@@ -246,19 +246,19 @@
     </div>
     <div class="benefits-grid">
         <div class="benefit-card reveal">
-          <div class="benefit-icon">⚡</div>
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <h3>Rapid Response — 24/7</h3>
           <p>Storm damage can't wait. We offer 24/7 availability with same-day or next-day inspections. Every hour of delay risks further water intrusion and structural damage.</p>
         </div>
 
         <div class="benefit-card reveal">
-          <div class="benefit-icon">📋</div>
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
           <h3>Insurance Claim Assistance</h3>
           <p>We work directly with all major insurance companies. Our detailed damage documentation helps maximize your claim, and we guide you through every step of the process.</p>
         </div>
 
         <div class="benefit-card reveal">
-          <div class="benefit-icon">🔨</div>
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12l-8.5 8.5a2.12 2.12 0 01-3-3L12 9"/><path d="M17.64 15L22 10.64"/><path d="M20.91 11.7l-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 00-3.94-1.64H9l.92.82A6.18 6.18 0 0112 8.4v1.56l2 2h2.47l2.26 1.91"/></svg></div>
           <h3>Expert, Warranty-Backed Repairs</h3>
           <p>Our licensed team restores roofing, flashing, gutters, and siding using quality materials — all backed by a comprehensive workmanship warranty.</p>
         </div>
