@@ -80,7 +80,7 @@
     .benefit-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--orange); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
     .benefit-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .benefit-card:hover::after { transform: scaleX(1); }
-    .benefit-icon { font-size: 36px; margin-bottom: 20px; display: block; }
+    .benefit-icon { width: 52px; height: 52px; background: var(--orange-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; } .benefit-icon svg { width: 28px; height: 28px; color: var(--orange); }
     .benefit-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.2px; }
     .benefit-card p { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
 
@@ -246,19 +246,19 @@
     </div>
     <div class="benefits-grid">
         <div class="benefit-card reveal">
-          <div class="benefit-icon">🔍</div>
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
           <h3>Free Roof Inspections</h3>
           <p>We use drone technology to inspect every inch of your roof — including areas that are dangerous or impossible to reach safely. You get a full damage report before any work begins.</p>
         </div>
 
         <div class="benefit-card reveal">
-          <div class="benefit-icon">⚡</div>
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <h3>Same-Day Emergency Response</h3>
           <p>Roof damage can't wait. We offer same-day and emergency scheduling so water doesn't get a chance to cause secondary damage to your home's structure.</p>
         </div>
 
         <div class="benefit-card reveal">
-          <div class="benefit-icon">✅</div>
+          <div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
           <h3>Warranty-Backed Work</h3>
           <p>Every repair is backed by a warranty covering both materials and labor. We don't just patch — we fix it properly so the problem doesn't come back.</p>
         </div>
