@@ -8,7 +8,7 @@ const PROJECT_ID   = 'ot1ams1m';
 const DATASET      = 'production';
 const REPO         = 'Akbarali98/midwestern-roofing-mockup';
 const GH_TOKEN     = process.env.GH_TOKEN;
-const DEPLOY_HOOK  = 'https://api.vercel.com/v1/integrations/deploy/prj_qrqkKRvXL80JY5N1rAITYzkJJwll/tWN4ioLZAR';
+const DEPLOY_HOOK  = 'https://api.vercel.com/v1/integrations/deploy/prj_YY7F6abEyoeV8FoSWlumd6fbMBae/xcy6u5F43f';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function triggerDeploy() {
