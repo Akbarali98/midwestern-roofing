@@ -105,14 +105,14 @@ async function bake() {
     if (imgs[slug]) {
       html = html.replace(
         /(<img id="article-hero-img" src=")[^"]*(")/,
-        `$1${imgs[slug]}$2`
+        `$1${imgs[slug]}?w=1200&auto=format$2`
       );
     }
     for (const rslug of related) {
       if (imgs[rslug]) {
         html = html.replace(
           new RegExp(`(<img id="rel-img-${rslug}" src=")[^"]*(")`,'g'),
-          `$1${imgs[rslug]}$2`
+          `$1${imgs[rslug]}?w=800&auto=format$2`
         );
       }
     }
@@ -128,7 +128,7 @@ async function bake() {
       if (!url) continue;
       html = html.replace(
         new RegExp(`(<img id="blog-img-${slug}" src=")[^"]*(")`,'g'),
-        `$1${url}$2`
+        `$1${url}?w=800&auto=format$2`
       );
     }
     await pushFile('blog.html', html, '[sanity-bake] Update blog listing images');
