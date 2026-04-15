@@ -3,7 +3,7 @@
 
 const https = require('https');
 
-const TO_EMAIL   = 'akkiiali98@gmail.com'; // TODO: change to support@midwestern.construction after domain verified
+const TO_EMAIL   = 'support@midwestern.construction';
 const FROM_EMAIL = 'onboarding@resend.dev';
 const RESEND_KEY = process.env.RESEND_API_KEY;
 
