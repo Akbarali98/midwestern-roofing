@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
       <tr><td style="padding:10px 0;color:#6B7280;">Service</td><td style="padding:10px 0;font-weight:700;">${service}</td></tr>
       <tr><td style="padding:10px 0;color:#6B7280;vertical-align:top;">Message</td><td style="padding:10px 0;">${message || '(none)'}</td></tr>
     </table>
-    <p style="font-family:sans-serif;font-size:13px;color:#9CA3AF;margin-top:32px;">Sent from midwestern-roofing-mockup.vercel.app</p>
+    <p style="font-family:sans-serif;font-size:13px;color:#9CA3AF;margin-top:32px;">Sent from midwestern-roofing.vercel.app</p>
   `;
 
   try {
