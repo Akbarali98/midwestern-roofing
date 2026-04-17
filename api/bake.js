@@ -1,12 +1,12 @@
 // Sanity webhook endpoint — called automatically when content is published in Sanity.
 // Fetches latest blog post images and updates the HTML files in GitHub.
-// Set this as a Sanity webhook: POST https://midwestern-roofing-mockup.vercel.app/api/bake
+// Set this as a Sanity webhook: POST https://midwestern-roofing.vercel.app/api/bake
 
 const https = require('https');
 
 const PROJECT_ID   = 'ot1ams1m';
 const DATASET      = 'production';
-const REPO         = 'Akbarali98/midwestern-roofing-mockup';
+const REPO         = 'Akbarali98/midwestern-roofing';
 const GH_TOKEN     = process.env.GH_TOKEN;
 const DEPLOY_HOOK  = 'https://api.vercel.com/v1/integrations/deploy/prj_YY7F6abEyoeV8FoSWlumd6fbMBae/xcy6u5F43f';
 
