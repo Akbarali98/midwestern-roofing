@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MidWestern Construction — Website Handoff Guide</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; color: #1a1a1a; background: #fff; }
+
+    .cover {
+      background: #111827;
+      color: #fff;
+      padding: 80px 60px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .cover-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #E85D04; margin-bottom: 16px; }
+    .cover h1 { font-size: 36px; font-weight: 900; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 10px; }
+    .cover p { font-size: 15px; color: #9CA3AF; margin-top: 8px; }
+
+    .content { padding: 48px 60px; max-width: 860px; }
+
+    h2 { font-size: 20px; font-weight: 900; color: #111827; margin-top: 48px; margin-bottom: 6px; padding-bottom: 10px; border-bottom: 2px solid #E85D04; }
+    h2:first-of-type { margin-top: 0; }
+    h3 { font-size: 15px; font-weight: 800; color: #111827; margin-top: 28px; margin-bottom: 10px; }
+
+    p { font-size: 14px; color: #374151; line-height: 1.75; margin-bottom: 10px; }
+
+    .step { display: flex; gap: 16px; margin-bottom: 14px; align-items: flex-start; }
+    .step-num {
+      min-width: 28px; height: 28px; background: #E85D04; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+    }
+    .step-text { font-size: 14px; color: #374151; line-height: 1.7; }
+    .step-text strong { color: #111827; }
+
+    .credential-box {
+      background: #F9FAFB;
+      border: 1.5px solid #E5E7EB;
+      border-left: 4px solid #E85D04;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 16px 0;
+    }
+    .credential-box table { width: 100%; border-collapse: collapse; }
+    .credential-box td { padding: 6px 0; font-size: 13px; vertical-align: top; }
+    .credential-box td:first-child { color: #6B7280; font-weight: 700; width: 160px; white-space: nowrap; }
+    .credential-box td:last-child { font-family: 'Courier New', monospace; color: #111827; word-break: break-all; }
+
+    .warning-box {
+      background: #FEF3C7;
+      border: 1.5px solid #FCD34D;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.6;
+    }
+    .warning-box strong { color: #78350F; }
+
+    .info-box {
+      background: #EFF6FF;
+      border: 1.5px solid #BFDBFE;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 13px;
+      color: #1E40AF;
+      line-height: 1.6;
+    }
+
+    .dns-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+    .dns-table th { background: #111827; color: #fff; padding: 10px 14px; text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+    .dns-table td { padding: 10px 14px; border-bottom: 1px solid #E5E7EB; font-family: 'Courier New', monospace; }
+    .dns-table tr:last-child td { border-bottom: none; }
+
+    .how-it-works { background: #111827; color: #fff; padding: 32px 40px; border-radius: 12px; margin: 32px 0; }
+    .how-it-works h3 { color: #E85D04; margin-top: 0; font-size: 16px; margin-bottom: 20px; }
+    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .flow-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 16px; font-size: 13px; color: #F9FAFB; font-weight: 600; }
+    .flow-arrow { color: #E85D04; font-size: 18px; font-weight: 900; }
+    .how-it-works p { color: #9CA3AF; font-size: 13px; margin-bottom: 6px; }
+
+    .checklist { list-style: none; margin: 12px 0; }
+    .checklist li { font-size: 14px; color: #374151; padding: 7px 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 10px; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: '☐'; font-size: 16px; color: #D1D5DB; flex-shrink: 0; }
+
+    .section-divider { height: 1px; background: #F3F4F6; margin: 48px 0; }
+
+    @media print {
+      body { font-size: 13px; }
+      .cover { padding: 60px 48px; }
+      .content { padding: 36px 48px; }
+      h2 { page-break-before: auto; }
+      .how-it-works { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-tag">Website Handoff Document</div>
+  <h1>MidWestern Construction<br>Website Setup Guide</h1>
+  <p>Everything you need to take ownership of your website — step by step.</p>
+  <p style="margin-top:24px;font-size:12px;color:#6B7280;">Prepared April 2026 &nbsp;·&nbsp; midwestern.construction</p>
+</div>
+
+<div class="content">
+
+  <!-- HOW IT WORKS -->
+  <h2>How Your Website Works</h2>
+  <p>Your website is made up of three separate services that work together. Understanding this will help you manage it going forward.</p>
+
+  <div class="how-it-works">
+    <h3>The Flow</h3>
+    <div class="flow">
+      <div class="flow-item">GitHub<br><span style="font-size:11px;color:#9CA3AF;font-weight:400;">Stores the code</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">Vercel<br><span style="font-size:11px;color:#9CA3AF;font-weight:400;">Hosts & deploys it</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">midwestern.construction<br><span style="font-size:11px;color:#9CA3AF;font-weight:400;">Your live domain</span></div>
+    </div>
+    <div class="flow" style="margin-top:16px;">
+      <div class="flow-item">Sanity Studio<br><span style="font-size:11px;color:#9CA3AF;font-weight:400;">Edit blog images & content</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">Webhook (/api/bake)<br><span style="font-size:11px;color:#9CA3AF;font-weight:400;">Updates the site</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">Live Website<br><span style="font-size:11px;color:#9CA3AF;font-weight:400;">Reflects changes</span></div>
+    </div>
+    <p style="margin-top:20px;">Every time you push a change to GitHub, Vercel automatically rebuilds and deploys your site within ~1 minute. Sanity is your content editor — use it to update blog post images.</p>
+  </div>
+
+  <!-- STEP 1: ACCOUNTS -->
+  <h2>Step 1 — Create Your Accounts</h2>
+  <p>You need accounts on three platforms. All are free.</p>
+
+  <h3>GitHub — github.com</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Go to <strong>github.com</strong> and sign up with your email.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Choose the <strong>Free</strong> plan.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Share your GitHub username with your developer so they can transfer the repository to you.</div></div>
+
+  <h3>Vercel — vercel.com</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Go to <strong>vercel.com</strong> and click <strong>Sign Up</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Choose <strong>Continue with GitHub</strong> — this links the two accounts automatically.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Select the <strong>Hobby (Free)</strong> plan.</div></div>
+
+  <h3>Sanity — sanity.io</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Go to <strong>sanity.io</strong> and sign up.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Your developer will invite you as an Administrator to the existing project. Check your email for the invite and accept it.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Once accepted, your content editor is at: <strong>midwestern-roofing.sanity.studio</strong></div></div>
+
+  <div class="section-divider"></div>
+
+  <!-- STEP 2: GITHUB TRANSFER -->
+  <h2>Step 2 — Accept the GitHub Repository Transfer</h2>
+  <p>Your developer will initiate the transfer. You just need to accept it.</p>
+
+  <div class="step"><div class="step-num">1</div><div class="step-text">You'll receive an email from GitHub with the subject <strong>"Repository transfer request"</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Click the link in the email and click <strong>Accept Transfer</strong>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">The repository <strong>midwestern-roofing</strong> will now appear in your GitHub account.</div></div>
+
+  <div class="section-divider"></div>
+
+  <!-- STEP 3: VERCEL SETUP -->
+  <h2>Step 3 — Set Up Vercel</h2>
+  <p>Import your GitHub repository into Vercel so it can host your site.</p>
+
+  <div class="step"><div class="step-num">1</div><div class="step-text">Log into <strong>vercel.com</strong> → click <strong>Add New Project</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Click <strong>Import</strong> next to <strong>midwestern-roofing</strong>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Leave all settings as default → click <strong>Deploy</strong>. Wait for the green checkmark.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text">Go to <strong>Settings → Environment Variables</strong> and add the following two variables exactly as shown:</div></div>
+
+  <div class="credential-box">
+    <table>
+      <tr>
+        <td>Variable Name</td>
+        <td>Value</td>
+      </tr>
+      <tr><td style="padding-top:12px;color:#E85D04;font-weight:800;font-family:monospace;">RESEND_API_KEY</td><td style="padding-top:12px;">re_MXaWRdRG_FFaUjnBQX7AZhR3PoHD2EPS8</td></tr>
+      <tr><td style="color:#E85D04;font-weight:800;font-family:monospace;">GH_TOKEN</td><td><em style="color:#9CA3AF;">Generate a new one — see Step 3a below</em></td></tr>
+    </table>
+  </div>
+
+  <div class="warning-box">
+    <strong>⚠ Important — GitHub Token:</strong> The original GitHub token was shared during development and must be replaced with a new one before going live. Follow Step 3a below to generate a fresh token.
+  </div>
+
+  <h3>Step 3a — Generate a GitHub Personal Access Token</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Log into GitHub → click your profile picture (top right) → <strong>Settings</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Scroll down to <strong>Developer settings</strong> → <strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Click <strong>Generate new token (classic)</strong>.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text">Give it a name (e.g. "Vercel Bake"), set expiration to <strong>No expiration</strong>, and check the <strong>repo</strong> scope.</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text">Click <strong>Generate token</strong> → copy the token immediately (you won't see it again).</div></div>
+  <div class="step"><div class="step-num">6</div><div class="step-text">Paste this value as the <strong>GH_TOKEN</strong> environment variable in Vercel.</div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-text">After adding both env vars, go to <strong>Deployments</strong> → click the three dots on the latest deployment → <strong>Redeploy</strong>.</div></div>
+
+  <div class="section-divider"></div>
+
+  <!-- STEP 4: DOMAIN -->
+  <h2>Step 4 — Connect Your Domain</h2>
+  <p>Point <strong>midwestern.construction</strong> (purchased through Squarespace) to your Vercel site.</p>
+
+  <h3>In Vercel:</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Go to your project → <strong>Settings → Domains</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Type <strong>midwestern.construction</strong> → click <strong>Add</strong>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Also add <strong>www.midwestern.construction</strong> → click <strong>Add</strong>.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text">Vercel will show DNS records — add them in Squarespace as shown below.</div></div>
+
+  <h3>In Squarespace:</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Log into <strong>squarespace.com</strong> → click <strong>Domains</strong> → click <strong>midwestern.construction</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Click <strong>DNS Settings</strong> → scroll to <strong>Custom Records</strong>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Add these two records:</div></div>
+
+  <table class="dns-table">
+    <thead>
+      <tr><th>Type</th><th>Name / Host</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>A</td><td>@</td><td>76.76.21.21</td></tr>
+      <tr><td>CNAME</td><td>www</td><td>cname.vercel-dns.com</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    ℹ️ DNS changes can take anywhere from a few minutes to 24 hours to go live. Once active, Vercel will show a green checkmark next to your domain.
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- STEP 5: CONTACT FORM -->
+  <h2>Step 5 — Activate Contact Form Emails</h2>
+  <p>The contact form currently sends test emails. To receive real submissions at <strong>support@midwestern.construction</strong>, complete the steps below.</p>
+
+  <h3>Verify your domain on Resend:</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Log into <strong>resend.com</strong> (account already created during setup) → go to <strong>Domains</strong> → click <strong>Add Domain</strong>.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Type <strong>midwestern.construction</strong> → click Add. Resend will give you TXT and MX records.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">Add those records in Squarespace DNS Settings (same place as Step 4) under Custom Records.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text">Back in Resend, click <strong>Verify</strong> — usually confirms within a few minutes.</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text">Contact your developer — they'll update one line of code to switch the contact form from test mode to live, sending directly to <strong>support@midwestern.construction</strong>.</div></div>
+
+  <div class="section-divider"></div>
+
+  <!-- STEP 6: GOOGLE ADS -->
+  <h2>Step 6 — Google Ads & Analytics (Pending)</h2>
+  <p>To connect Google Ads conversion tracking and Google Analytics to your website, provide your developer with the following IDs from your Google account:</p>
+
+  <div class="credential-box">
+    <table>
+      <tr><td>Google Analytics ID</td><td>Looks like: <strong>G-XXXXXXXXXX</strong></td></tr>
+      <tr><td>Google Ads ID</td><td>Looks like: <strong>AW-XXXXXXXXXX</strong></td></tr>
+    </table>
+  </div>
+
+  <p>Your developer will add the tracking snippets to every page. No login sharing required — just the IDs.</p>
+
+  <div class="section-divider"></div>
+
+  <!-- HOW TO UPDATE CONTENT -->
+  <h2>How to Update Your Website Content</h2>
+
+  <h3>Update Blog Post Images</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text">Go to <strong>midwestern-roofing.sanity.studio</strong> and log in.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text">Click <strong>Blog Post</strong> → select the post → upload a new image → click <strong>Publish</strong>.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text">To push the update live, call the bake endpoint by visiting this URL in your browser or sending a POST request:<br><strong style="font-family:monospace;">POST https://midwestern.construction/api/bake</strong><br>Your developer can set this up as a Sanity webhook so it happens automatically.</div></div>
+
+  <h3>Update Contact Info, Phone, Address</h3>
+  <p>Contact your developer — these can be updated in Sanity or directly in the code depending on the field.</p>
+
+  <div class="section-divider"></div>
+
+  <!-- QUICK REFERENCE -->
+  <h2>Quick Reference</h2>
+
+  <div class="credential-box">
+    <table>
+      <tr><td>Live Website</td><td>https://midwestern.construction</td></tr>
+      <tr><td>GitHub Repo</td><td>github.com/[your-username]/midwestern-roofing</td></tr>
+      <tr><td>Content Editor</td><td>midwestern-roofing.sanity.studio</td></tr>
+      <tr><td>Sanity Project ID</td><td>ot1ams1m</td></tr>
+      <tr><td>Hosting</td><td>vercel.com</td></tr>
+      <tr><td>Email Service</td><td>resend.com</td></tr>
+      <tr><td>Domain Registrar</td><td>Squarespace</td></tr>
+    </table>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- FINAL CHECKLIST -->
+  <h2>Final Handoff Checklist</h2>
+  <ul class="checklist">
+    <li>GitHub account created &amp; repository transfer accepted</li>
+    <li>Vercel account created &amp; project imported from GitHub</li>
+    <li>RESEND_API_KEY added to Vercel environment variables</li>
+    <li>New GH_TOKEN generated &amp; added to Vercel environment variables</li>
+    <li>Sanity account created &amp; admin access accepted</li>
+    <li>DNS records added in Squarespace (A record + CNAME)</li>
+    <li>midwestern.construction domain verified as live in Vercel</li>
+    <li>Resend domain verified for contact form emails</li>
+    <li>Google Ads &amp; Analytics IDs provided to developer</li>
+    <li>Test contact form submission received at support@midwestern.construction</li>
+  </ul>
+
+  <div style="margin-top:64px;padding-top:24px;border-top:1px solid #E5E7EB;font-size:12px;color:#9CA3AF;">
+    <p>Prepared for MidWestern Construction · April 2026 · Questions? Contact your developer.</p>
+  </div>
+
+</div>
+</body>
+</html>
